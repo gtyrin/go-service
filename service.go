@@ -15,7 +15,7 @@ import (
 	"github.com/streadway/amqp"
 	"gopkg.in/yaml.v3"
 
-	md "github.com/gtyrin/ds/audio/metadata"
+	md "github.com/gtyrin/go-audiomd"
 )
 
 // MessageCmdRunner - общий интерфейс для всех сервисов, получающих запросы с помощью
