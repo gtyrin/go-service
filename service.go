@@ -38,7 +38,7 @@ type Request struct {
 
 // Version is a microservice version and build time data.
 type Version struct {
-	Subsystem, Name, Description, Version, Date string
+	Subsystem, Name, Description, Date string
 }
 
 // Service implement base functionality of microservices with using RabbitMq.
