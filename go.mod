@@ -1,4 +1,4 @@
-module github.com/ytsiuryn/go-service
+module github.com/ytsiuryn/ds-service
 
 go 1.16
 
