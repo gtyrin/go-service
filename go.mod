@@ -1,4 +1,4 @@
-module github.com/gtyrin/go-service
+module github.com/ytsiuryn/go-service
 
 go 1.16
 
