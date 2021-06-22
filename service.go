@@ -7,7 +7,6 @@ import (
 	"io/ioutil"
 	"os"
 	"os/signal"
-	"path/filepath"
 	"syscall"
 	"time"
 
@@ -76,22 +75,16 @@ func LogCmd(request *Request) {
 }
 
 // ReadConfig читает содержимое файла настройки сервиса в выходную структуру.
-// Подразумевается, что файл настроек лежит в домашнем каталоге, в .config/ds подкаталоге.
 func ReadConfig(optFile string, conf interface{}) {
-	path, err := os.UserHomeDir()
-	if err != nil {
-		FailOnError(err, "Config file")
-	}
-	fn := filepath.Join(path, ".config/ds", optFile)
-	data, err := ioutil.ReadFile(fn)
+	data, err := ioutil.ReadFile(optFile)
 	if err != nil {
 		if os.IsNotExist(err) {
-			log.Warnf("Config file %s does not exist", fn)
+			log.Warnf("Config file %s does not exist", optFile)
 			data, err := yaml.Marshal(conf)
 			if err != nil {
 				FailOnError(err, "Config file")
 			}
-			if err = ioutil.WriteFile(fn, data, 0640); err != nil {
+			if err = ioutil.WriteFile(optFile, data, 0640); err != nil {
 				FailOnError(err, "Config file")
 			}
 			log.Info("Empty option file has created")
