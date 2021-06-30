@@ -13,8 +13,6 @@ import (
 	log "github.com/sirupsen/logrus"
 	"github.com/streadway/amqp"
 	"gopkg.in/yaml.v3"
-
-	md "github.com/ytsiuryn/ds-audiomd"
 )
 
 // MessageCmdRunner - общий интерфейс для всех сервисов, получающих запросы с помощью
@@ -188,16 +186,6 @@ func ParseRequest(d *amqp.Delivery) (*Request, error) {
 		return nil, err
 	}
 	return &request, nil
-}
-
-// ParseRelease parses input parameters for release request with incomplete data.
-func (rq Request) ParseRelease() (*md.Release, error) {
-	release := md.NewRelease()
-	release, ok := rq.Params["release"].(*md.Release)
-	if !ok {
-		return nil, errors.New("Album release description is absent")
-	}
-	return release, nil
 }
 
 // RunCommonCmd execute a general command and return the result to the client.
