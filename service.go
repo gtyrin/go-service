@@ -29,8 +29,8 @@ type MessageCmdRunner interface {
 
 // Request describes common request data.
 type Request struct {
-	Cmd    string                 `json:"cmd"`
-	Params map[string]interface{} `json:"params"`
+	Cmd    string            `json:"cmd"`
+	Params map[string]string `json:"params"`
 }
 
 // Version is a microservice version and build time data.
