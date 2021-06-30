@@ -32,7 +32,7 @@ type MessageCmdRunner interface {
 // Request describes common request data.
 type Request struct {
 	Cmd    string
-	Params map[string]string
+	Params map[string]interface{}
 }
 
 // Version is a microservice version and build time data.
@@ -193,12 +193,9 @@ func ParseRequest(d *amqp.Delivery) (*Request, error) {
 // ParseRelease parses input parameters for release request with incomplete data.
 func (rq Request) ParseRelease() (*md.Release, error) {
 	release := md.NewRelease()
-	releaseJSON, ok := rq.Params["release"]
+	release, ok := rq.Params["release"].(*md.Release)
 	if !ok {
 		return nil, errors.New("Album release description is absent")
-	}
-	if err := json.Unmarshal([]byte(releaseJSON), release); err != nil {
-		return nil, err
 	}
 	return release, nil
 }
