@@ -1,6 +1,8 @@
 package service
 
 import (
+	"log"
+
 	"github.com/streadway/amqp"
 )
 
@@ -59,9 +61,10 @@ func (cl *RPCClient) Request(srvName, corrID string, args []byte) {
 	FailOnError(err, "Failed to publish a message")
 }
 
-func (cl *RPCClient) ReadResult(corrID string) []byte {
+func (cl *RPCClient) LogResult(corrID string) []byte {
 	for d := range cl.msgs {
 		if corrID == d.CorrelationId {
+			log.Println(string(d.Body))
 			return d.Body
 		}
 	}
