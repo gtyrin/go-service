@@ -7,6 +7,7 @@ import (
 	"io/ioutil"
 	"os"
 	"os/signal"
+	"reflect"
 	"syscall"
 	"time"
 
@@ -29,8 +30,8 @@ type MessageCmdRunner interface {
 
 // Request describes common request data.
 type Request struct {
-	Cmd    string            `json:"cmd"`
-	Params map[string]string `json:"params"`
+	Cmd    string      `json:"cmd"`
+	Params interface{} `json:"params"`
 }
 
 // Version is a microservice version and build time data.
@@ -65,7 +66,7 @@ func LogLevel(isProduct bool) log.Level {
 
 // LogCmd log a queryied cmd with existing arguments.
 func LogCmd(request *Request) {
-	if len(request.Params) == 0 {
+	if reflect.ValueOf(request.Params).IsZero() {
 		log.Debug(request.Cmd + "()")
 	} else {
 		log.WithField("args", request.Params).Debug(request.Cmd + "()")
