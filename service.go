@@ -30,7 +30,7 @@ type MessageCmdRunner interface {
 // Request describes common request data.
 type Request struct {
 	Cmd    string
-	Params map[string]interface{}
+	Params map[string][]byte
 }
 
 // Version is a microservice version and build time data.
